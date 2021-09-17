@@ -1,0 +1,33 @@
+{% extends "upload_app/base.html" %}
+{% block content %}
+
+<body>
+
+
+<br>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    <br>
+  <h3>Введите размеры файла в pix:</h3>
+
+    <p><label class="form-label" for="{{ form.width.id_for_label }}">{{form.width.label}}: </label>{{ form.width }}</p>
+    <div class="form-error">{{ form.width.errors }}</div>
+
+    <p><label class="form-label" for="{{ form.height.id_for_label }}">{{form.height.label}}: </label>{{ form.height }}</p>
+    <div class="form-error">{{ form.height.errors }}</div>
+
+
+
+    <button type="submit">Изменить размер файла</button>
+
+</form>
+
+{% if img_obj %}
+<br>
+  <h5>Файл загружен успешно по пути: {{ img_obj.picture }}</h5>
+  <img src="{{ img_obj.picture.url }}" alt="connect" style="max-height:150px">
+  <p>Оригинальный размер картинки  {{ img_obj.picture.width }}x{{ img_obj.picture.height }}</p>
+{% endif %}
+</body>
+{% endblock %}
